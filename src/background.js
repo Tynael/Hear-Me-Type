@@ -5,11 +5,15 @@
 
 import path from 'path';
 import url from 'url';
-import { app, Menu } from 'electron';
+import { app, Menu, Tray, BrowserWindow } from 'electron';
 import { devMenuTemplate } from './menu/dev_menu_template';
 import { editMenuTemplate } from './menu/edit_menu_template';
 import createWindow from './helpers/window';
+const path = require('path');
+const iconPath = path.join(__dirname, 'icon.ico');
 
+let appIcon = null;
+let win = null;
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
 import env from './env';
@@ -37,7 +41,10 @@ app.on('ready', function () {
 
     var mainWindow = createWindow('main', {
         width: 1000,
-        height: 600
+        height: 600,
+        title: "Hear Me Type",
+        icon: iconPath
+        // frame: false
     });
 
     mainWindow.loadURL(url.format({
@@ -49,8 +56,38 @@ app.on('ready', function () {
     if (env.name === 'development') {
         mainWindow.openDevTools();
     }
-});
 
-app.on('window-all-closed', function () {
-    app.quit();
+    app.on('window-all-closed', function () {
+        app.quit();
+    });
+
+    appIcon = new Tray(iconPath);
+      var contextMenu = Menu.buildFromTemplate([
+        {
+          label: 'Show app',
+          click: function() {
+            mainWindow.show();
+          }
+        },
+        { label: 'Quit',
+          click: function() {
+            app.quit();
+          }
+        }
+      ]);
+      appIcon.setToolTip('Hear Me Type is minimized to tray.');
+      appIcon.setContextMenu(contextMenu);
+
+      mainWindow.on('minimize',function(event){
+          event.preventDefault()
+              mainWindow.hide();
+      });
+      //
+      // mainWindow.on('close', function (event) {
+      //   if( !app.isQuiting){
+      //       event.preventDefault()
+      //       mainWindow.hide();
+      //   }
+      //   return false;
+      // });
 });
