@@ -1,24 +1,36 @@
-// var sounds = {
-//    65: "A",
-//    66: "B"
-// };
-//
-// document.onkeydown = function(e) {
-//     var soundId = sounds[e.keyCode];
-//     if (soundId) document.getElementById('soundsA').play();
-//     else console.log("key not mapped : code is", e.keyCode);
-// }
-
-// if (sounds[65]) {
-//   document.onkeydown = function(e) {
-//       var soundId = sounds[e.keyCode];
-//       if (soundId) document.getElementById('soundsA').play();
-//       else console.log("key not mapped : code is", e.keyCode);
-//   }
-// }
-
+'use strict';
 document.onkeydown = function(e) {
     switch (e.keyCode) {
+        case 48:
+            document.getElementById('0').play();
+            break;
+        case 49:
+            document.getElementById('1').play();
+            break;
+        case 50:
+            document.getElementById('2').play();
+            break;
+        case 51:
+            document.getElementById('3').play();
+            break;
+        case 52:
+            document.getElementById('4').play();
+            break;
+        case 53:
+            document.getElementById('5').play();
+            break;
+        case 54:
+            document.getElementById('6').play();
+            break;
+        case 55:
+            document.getElementById('7').play();
+            break;
+        case 56:
+            document.getElementById('8').play();
+            break;
+        case 57:
+            document.getElementById('9').play();
+            break;
         case 65:
             document.getElementById('A').play();
             break;
